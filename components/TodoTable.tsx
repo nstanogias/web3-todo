@@ -1,0 +1,139 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
+import { deleteTodo } from "@/lib/actions/todo.actions";
+import { formUrlQuery } from "@/lib/utils";
+import { Todo } from "@/types";
+import { format } from "date-fns";
+import { Edit, Trash } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+
+type Props = {
+  todos: Todo[];
+  totalPages: number;
+  page: number;
+};
+
+const TodoTable = ({ todos, totalPages, page }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+
+  const handleDelete = async (id: string) => {
+    setLoading(true);
+    try {
+      await deleteTodo(id);
+      toast({
+        description: "To-Do deleted successfully!",
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        description: "Failed to delete To-Do",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onClick = (btnType: string) => {
+    const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
+
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: "page",
+      value: pageValue.toString(),
+    });
+
+    router.push(newUrl, { scroll: false });
+  };
+
+  return (
+    <div className="w-full wrapper">
+      <h1 className="text-2xl font-bold mb-6">To-Do List</h1>
+
+      <Table className="w-full text-left">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Due Date</TableHead>
+            <TableHead>Priority</TableHead>
+            <TableHead>Completed</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {todos?.length > 0 ? (
+            todos.map((todo) => (
+              <TableRow key={todo.id}>
+                <TableCell>{todo.title}</TableCell>
+                <TableCell>{todo.description}</TableCell>
+                <TableCell>
+                  {todo.dueDate ? format(new Date(todo.dueDate), "PPP") : "-"}
+                </TableCell>
+                <TableCell>{todo.priority}</TableCell>
+                <TableCell>{todo.completed ? "Yes" : "No"}</TableCell>
+                <TableCell className="flex items-center gap-x-4">
+                  <Link href={`/todos/${todo.id}/update`}>
+                    <Edit className="w-5 h-5" />
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    disabled={todo.completed || loading}
+                    onClick={() => handleDelete(todo.id!)}
+                  >
+                    <Trash className="w-5 h-5 text-red-600" />
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6}>No To-Dos available</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+
+      <div className="flex justify-between items-center mt-6">
+        <Button
+          onClick={() => onClick("prev")}
+          disabled={page <= 1}
+          className="bg-gray-300 text-black hover:bg-gray-500 disabled:bg-gray-200"
+        >
+          Previous
+        </Button>
+        <span>
+          Page {page} of {totalPages}
+        </span>
+        <Button
+          onClick={() => onClick("next")}
+          disabled={page >= totalPages}
+          className="bg-gray-300 text-black hover:bg-gray-500 disabled:bg-gray-200"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default TodoTable;
