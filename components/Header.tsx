@@ -1,3 +1,4 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ListTodo } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +10,7 @@ const Header = () => {
         <Link href="/" className="w-36">
           <ListTodo size={36} />
         </Link>
+        <ConnectButton />
       </div>
     </header>
   );
