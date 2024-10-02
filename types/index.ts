@@ -12,3 +12,5 @@ export type UrlQueryParams = {
   key: string;
   value: string | null;
 };
+
+export type Optional<T> = T | undefined | null;

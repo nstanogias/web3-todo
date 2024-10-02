@@ -16,7 +16,6 @@ import { Todo } from "@/types";
 import { format } from "date-fns";
 import { Edit, Trash } from "lucide-react";
 import { Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -33,11 +32,6 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const { status } = useSession();
-
-  if (status !== "authenticated") {
-    return null;
-  }
 
   const handleDelete = async (id: string) => {
     setLoading(true);
@@ -69,10 +63,7 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
   };
 
   return (
-    <div className="w-full wrapper">
-      <Button asChild size="lg" className="button my-16">
-        <Link href="/todos/create">Create New Todo</Link>
-      </Button>
+    <div>
       {/* <button
         onClick={() => {
           signMessageAsync({ message: "hello world" })
@@ -151,6 +142,10 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
           Next
         </Button>
       </div>
+
+      <Button asChild size="lg" className="button mt-16">
+        <Link href="/todos/create">Create New Todo</Link>
+      </Button>
     </div>
   );
 };

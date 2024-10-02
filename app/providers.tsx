@@ -1,6 +1,6 @@
 "use client";
 
-import { config } from "@/lib/wagmi";
+import { config } from "@/lib/wagmiConfig";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
   RainbowKitSiweNextAuthProvider,
