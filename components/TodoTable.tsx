@@ -16,10 +16,10 @@ import { Todo } from "@/types";
 import { format } from "date-fns";
 import { Edit, Trash } from "lucide-react";
 import { Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useAccount } from "wagmi";
 
 type Props = {
   todos: Todo[];
@@ -28,14 +28,16 @@ type Props = {
 };
 
 const TodoTable = ({ todos, totalPages, page }: Props) => {
-  const account = useAccount();
   const router = useRouter();
   // const { signMessageAsync } = useSignMessage();
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const { status } = useSession();
 
-  console.log(account.status);
+  if (status !== "authenticated") {
+    return null;
+  }
 
   const handleDelete = async (id: string) => {
     setLoading(true);
