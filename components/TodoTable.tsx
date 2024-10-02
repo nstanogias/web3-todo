@@ -19,6 +19,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useAccount } from "wagmi";
 
 type Props = {
   todos: Todo[];
@@ -27,10 +28,14 @@ type Props = {
 };
 
 const TodoTable = ({ todos, totalPages, page }: Props) => {
+  const account = useAccount();
   const router = useRouter();
+  // const { signMessageAsync } = useSignMessage();
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+
+  console.log(account.status);
 
   const handleDelete = async (id: string) => {
     setLoading(true);
@@ -63,6 +68,18 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
 
   return (
     <div className="w-full wrapper">
+      <Button asChild size="lg" className="button my-16">
+        <Link href="/todos/create">Create New Todo</Link>
+      </Button>
+      {/* <button
+        onClick={() => {
+          signMessageAsync({ message: "hello world" })
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+        }}
+      >
+        Sign message
+      </button> */}
       <h1 className="text-2xl font-bold mb-6">To-Do List</h1>
 
       <Table className="w-full text-left">
