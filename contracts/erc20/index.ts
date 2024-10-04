@@ -1,6 +1,6 @@
-export const address = "0xf02f35bF1C8D2c3a1e7255FD9AddC8F2182e0627";
+export const erc20Address = "0xf02f35bF1C8D2c3a1e7255FD9AddC8F2182e0627";
 
-export const abi = [
+export const erc20Abi = [
   {
     type: "function",
     name: "allowance",
