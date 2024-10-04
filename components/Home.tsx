@@ -1,5 +1,6 @@
 "use client";
 
+import MintButton from "./MintButton";
 import TodoTable from "./TodoTable";
 import TokenInfo from "./TokenInfo";
 import { Todo } from "@/types";
@@ -17,9 +18,12 @@ const Home = ({ todos, totalPages, page }: Props) => {
     return null;
   }
 
+  console.log(todos);
+  const completedTodos = todos.filter((todo) => todo.completed).length;
   return (
     <div className="w-full wrapper">
       <TokenInfo />
+      <MintButton />
       <TodoTable todos={todos} totalPages={totalPages} page={page} />
     </div>
   );
