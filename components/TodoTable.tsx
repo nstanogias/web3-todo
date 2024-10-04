@@ -98,7 +98,13 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
                 <TableCell>{todo.priority}</TableCell>
                 <TableCell>{todo.completed ? "Yes" : "No"}</TableCell>
                 <TableCell className="flex items-center gap-x-4">
-                  <Link href={`/todos/${todo.id}/update`}>
+                  <Link
+                    href={`/todos/${todo.id}/update`}
+                    aria-disabled={todo.completed}
+                    className={`${
+                      todo.completed ? "pointer-events-none opacity-50" : ""
+                    }`}
+                  >
                     <Edit className="w-5 h-5" />
                   </Link>
                   <Button
