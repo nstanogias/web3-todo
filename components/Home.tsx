@@ -19,11 +19,11 @@ const Home = ({ todos, totalPages, page }: Props) => {
   }
 
   // console.log(todos);
-  const completedTodos = todos.filter((todo) => todo.completed).length;
+  const completedTodosCounter = todos.filter((todo) => todo.completed).length;
   return (
     <div className="w-full wrapper">
       <TokenInfo />
-      <MintButton />
+      <MintButton completedTodosCounter={completedTodosCounter} />
       <TodoTable todos={todos} totalPages={totalPages} page={page} />
     </div>
   );

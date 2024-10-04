@@ -12,7 +12,11 @@ import {
   useAccount,
 } from "wagmi";
 
-const MintButton = () => {
+type Props = {
+  completedTodosCounter: number;
+};
+
+const MintButton = ({ completedTodosCounter }: Props) => {
   const { address: walletAddress } = useAccount();
   const { toast } = useToast();
   const [isPending, setIsPending] = useState(false);
@@ -83,7 +87,13 @@ const MintButton = () => {
 
   return (
     <>
-      <Button onClick={mint} disabled={isPending} className="my-16">
+      <Button
+        onClick={mint}
+        disabled={
+          isPending || Math.floor(completedTodosCounter / 2) < mintedNFTs
+        }
+        className="my-16"
+      >
         {isPending ? "Confirming..." : "Mint"}
       </Button>
       {/* {hash && <div>Transaction Hash: {hash}</div>} */}
