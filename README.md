@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a blockchain-integrated to-do list web application using Next.js, TypeScript, and web3 technologies.
 
 ## Getting Started
 
@@ -14,23 +14,28 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
+## Functional Requirements
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- User Authentication via Web3
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  - User logs in via connecting their MetaMask wallet
+  - User is required to sign a message with their wallet to properly sign in
 
-## Deploy on Vercel
+- To-Do List Functionality. Authenticated users can:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  - Create to-do items via the provided API
+  - Read to-do items via the provided API
+  - Update to-do items via the provided API
+  - Delete to-do items via the provided API
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Web3 functionalities. Authenticated users must:
+  - View current ERC20 token balance
+  - Mint an NFT after 2 to do list items are marked completed
+    - The mint button is initially disabled until completed the tasks.
+    - The mint transaction must await a specified number of blocks
+  - Burn the NFT
+    - The burn of the NFT will send an amount of an ERC20 token. After successfull burn, the ERC20 balance is updated in the UI.
+
+## Technologies used

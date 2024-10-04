@@ -49,7 +49,6 @@ export const authOptions: AuthOptions = {
           }
 
           await siwe.verify({ signature: credentials?.signature || "" });
-          console.log("test");
           return {
             id: siwe.address,
           };
