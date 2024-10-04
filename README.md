@@ -16,7 +16,7 @@ bun dev
 
 ## Functional Requirements
 
-To learn more about Next.js, take a look at the following resources:
+The project meets the following actions:
 
 - User Authentication via Web3
 
@@ -38,4 +38,17 @@ To learn more about Next.js, take a look at the following resources:
   - Burn the NFT
     - The burn of the NFT will send an amount of an ERC20 token. After successfull burn, the ERC20 balance is updated in the UI.
 
+## Blockchain and Network Info
+
+- Polygon Amoy testnet
+  - ERC20 Token Address in the Polygon Amoy Chain `0xf02f35bF1C8D2c3a1e7255FD9AddC8F2182e0627`
+  - ERC721 NFT Address in the Polygon Amoy Chain `0x8E1096fd5C8Ca1EFdC1BC2F64Ae439E0888b1A46`
+
 ## Technologies used
+
+- [RainbowKit](https://nextjs.org/docs) - to add wallet connection
+- [Wagmi](https://wagmi.sh/) - to interact with smart contracts
+- [Next Auth](https://next-auth.js.org/) - to add authentication to the app. Middleware is used to redirect users and protect routes
+- [React Hook Form](https://react-hook-form.com/) - to create todo form
+- [Zod](https://zod.dev/) - to validate schemas
+- [Shadcn/ui](https://ui.shadcn.com/) - as a component library
