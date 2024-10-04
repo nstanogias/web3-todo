@@ -43,6 +43,7 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
     } catch (error) {
       console.error(error);
       toast({
+        variant: "destructive",
         description: "Failed to delete To-Do",
       });
     } finally {

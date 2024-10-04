@@ -2,7 +2,9 @@
 
 import { Button } from "./ui/button";
 import { erc721Abi, erc721Address } from "@/contracts/erc721";
+import { useToast } from "@/hooks/use-toast";
 import { waitForTransactionReceipt } from "@wagmi/core";
+import { useState } from "react";
 import {
   useConfig,
   useWriteContract,
@@ -12,6 +14,8 @@ import {
 
 const MintButton = () => {
   const { address: walletAddress } = useAccount();
+  const { toast } = useToast();
+  const [isPending, setIsPending] = useState(false);
   const result = useReadContract({
     abi: erc721Abi,
     address: erc721Address,
@@ -20,15 +24,13 @@ const MintButton = () => {
   });
   const mintedNFTs = Number(result.data);
   const config = useConfig();
-  const { data: hash, isPending, writeContract } = useWriteContract();
+  const { data: hash, writeContract } = useWriteContract();
 
   const handleTransactionSubmitted = async (txHash: string) => {
     const transactionReceipt = await waitForTransactionReceipt(config, {
       confirmations: 2,
       hash: txHash as `0x${string}`,
     });
-    console.log("transactionReceipt", transactionReceipt);
-
     if (transactionReceipt.status === "success") {
       if (transactionReceipt.logs[0].topics[3]) {
         // ERC721 Transfer event specification
@@ -41,9 +43,16 @@ const MintButton = () => {
             args: [BigInt(tokenId)],
           },
           {
-            // onSuccess: handleTransactionSubmitted,
+            onSuccess: () => {
+              setIsPending(false);
+              alert("NFT minted and burned successfully! " + txHash);
+            },
             onError: (error) => {
-              console.log(error);
+              setIsPending(false);
+              toast({
+                variant: "destructive",
+                description: error.message,
+              });
             },
           }
         );
@@ -52,6 +61,7 @@ const MintButton = () => {
   };
 
   const mint = () => {
+    setIsPending(true);
     writeContract(
       {
         address: erc721Address,
@@ -61,7 +71,11 @@ const MintButton = () => {
       {
         onSuccess: handleTransactionSubmitted,
         onError: (error) => {
-          console.log(error);
+          setIsPending(false);
+          toast({
+            variant: "destructive",
+            description: error.message,
+          });
         },
       }
     );

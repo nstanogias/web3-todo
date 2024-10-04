@@ -30,13 +30,13 @@ The project meets the following actions:
   - Update to-do items via the provided API
   - Delete to-do items via the provided API
 
-- Web3 functionalities. Authenticated users must:
+- Web3 functionalities. Authenticated users can:
   - View current ERC20 token balance
   - Mint an NFT after 2 to do list items are marked completed
-    - The mint button is initially disabled until completed the tasks.
-    - The mint transaction must await a specified number of blocks
+    - The mint button is initially disabled until completed the tasks
+    - The mint transaction awaits a specified number of blocks
   - Burn the NFT
-    - The burn of the NFT will send an amount of an ERC20 token. After successfull burn, the ERC20 balance is updated in the UI.
+    - The burn of the NFT sends an amount of an ERC20 token. After successfull burn, the ERC20 balance is updated in the UI.
 
 ## Blockchain and Network Info
 
