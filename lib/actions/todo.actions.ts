@@ -3,7 +3,7 @@
 import { Todo } from "@/types";
 import { revalidatePath } from "next/cache";
 
-const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/todos`;
+const serverUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/todos`;
 
 export const getAllTodos = async (page: number = 1, limit: number = 10) => {
   const url = `${serverUrl}?page=${page}&limit=${limit}`;
