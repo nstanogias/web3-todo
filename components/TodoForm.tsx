@@ -64,7 +64,7 @@ const TodoForm = ({ type, todo, todoId }: Props) => {
   async function onSubmit(values: z.infer<typeof todoFormSchema>) {
     if (type === "Create") {
       try {
-        const newtodo = await createTodo({
+        await createTodo({
           todo: {
             ...values,
             priority: values.priority || "medium",
@@ -72,12 +72,10 @@ const TodoForm = ({ type, todo, todoId }: Props) => {
           },
         });
 
-        if (newtodo) {
-          toast({
-            description: "To-Do created successfully!",
-          });
-          router.push(`/`);
-        }
+        toast({
+          description: "To-Do created successfully!",
+        });
+        router.push(`/`);
       } catch (error) {
         console.log(error);
       }
@@ -90,7 +88,7 @@ const TodoForm = ({ type, todo, todoId }: Props) => {
       }
 
       try {
-        const updatedtodo = await updateTodo({
+        await updateTodo({
           todo: {
             ...values,
             priority: values.priority || "medium",
@@ -100,12 +98,10 @@ const TodoForm = ({ type, todo, todoId }: Props) => {
           id: todoId,
         });
 
-        if (updatedtodo) {
-          toast({
-            description: "To-Do updated successfully!",
-          });
-          router.push(`/`);
-        }
+        toast({
+          description: "To-Do updated successfully!",
+        });
+        router.push(`/`);
       } catch (error) {
         console.log(error);
       }
