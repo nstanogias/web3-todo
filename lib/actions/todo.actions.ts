@@ -153,7 +153,7 @@ export const createTodo = async ({ todo }: { todo: Todo }) => {
         wallet_address: session.address,
         title,
         description,
-        duedate: dueDate,
+        dueDate: dueDate,
         priority,
       },
     ])
@@ -204,9 +204,11 @@ export const updateTodo = async ({ todo, id }: { todo: Todo; id: string }) => {
 
   const { data, error } = await supabase
     .from("todos")
-    .update({ title, description, duedate: dueDate, priority, completed })
+    .update({ title, description, dueDate: dueDate, priority, completed })
     .eq("id", id)
-    .eq("wallet_address", session.address);
+    .eq("wallet_address", session.address)
+    .select() // Request the updated row(s) to be returned
+    .single();
 
   if (error) {
     throw new Error(error.message);
