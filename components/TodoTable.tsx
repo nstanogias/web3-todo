@@ -31,10 +31,10 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
   // const { signMessageAsync } = useSignMessage();
   const searchParams = useSearchParams();
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const [toDeleteId, setToDeleteId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
-    setLoading(true);
+    setToDeleteId(id);
     try {
       await deleteTodo(id);
       toast({
@@ -47,7 +47,7 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
         description: "Failed to delete To-Do",
       });
     } finally {
-      setLoading(false);
+      setToDeleteId(null);
     }
   };
 
@@ -111,11 +111,11 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    disabled={todo.completed || loading}
+                    disabled={todo.completed || toDeleteId === todo.id}
                     onClick={() => handleDelete(todo.id!)}
                   >
                     <Trash className="w-5 h-5 text-red-600" />
-                    {loading && (
+                    {toDeleteId === todo.id && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
                   </Button>
