@@ -20,7 +20,7 @@ const getSiweMessageOptions: GetSiweMessageOptions = () => ({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
-      <SessionProvider refetchInterval={0} session={null}>
+      <SessionProvider refetchInterval={0}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitSiweNextAuthProvider
             getSiweMessageOptions={getSiweMessageOptions}
