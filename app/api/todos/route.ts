@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     return NextResponse.json(newToDo, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Invalid request data" },
+      { message: "Invalid request data" + error },
       { status: 400 }
     );
   }

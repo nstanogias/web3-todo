@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
+import { authOptions } from "../auth";
 import { supabase } from "../supabase";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Todo } from "@/types";
 import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";

@@ -28,6 +28,7 @@ const MintButton = ({ completedTodosCounter }: Props) => {
   });
   const mintedNFTs = Number(result.data);
   const config = useConfig();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: hash, writeContract } = useWriteContract();
 
   const handleTransactionSubmitted = async (txHash: string) => {

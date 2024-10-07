@@ -25,7 +25,7 @@ export async function GET(
     return NextResponse.json(todo, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Error fetching the ToDo" },
+      { message: "Error fetching the ToDo" + error },
       { status: 500 }
     );
   }
@@ -50,7 +50,7 @@ export async function PUT(
     return NextResponse.json(updatedToDo, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Invalid request data" },
+      { message: "Invalid request data" + error },
       { status: 400 }
     );
   }
@@ -83,7 +83,7 @@ export async function DELETE(
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Error deleting ToDo" },
+      { message: "Error deleting ToDo" + error },
       { status: 500 }
     );
   }
