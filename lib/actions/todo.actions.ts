@@ -34,7 +34,12 @@ export const getAllTodos = async (page: number = 1, limit: number = 10) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.address) {
-    throw new Error("Unauthorized");
+    return {
+      data: [],
+      page,
+      limit,
+      total: 0,
+    };
   }
 
   const { data, error } = await supabase
