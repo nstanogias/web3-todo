@@ -15,7 +15,7 @@ import { formUrlQuery } from "@/lib/utils";
 import { Todo } from "@/types";
 import { format } from "date-fns";
 import { Edit, Trash } from "lucide-react";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -97,7 +97,13 @@ const TodoTable = ({ todos, totalPages, page }: Props) => {
                   {todo.dueDate ? format(new Date(todo.dueDate), "PPP") : "-"}
                 </TableCell>
                 <TableCell>{todo.priority}</TableCell>
-                <TableCell>{todo.completed ? "Yes" : "No"}</TableCell>
+                <TableCell>
+                  {todo.completed ? (
+                    <CheckCircle className="text-[#00FF00]" />
+                  ) : (
+                    <XCircle className="text-[#FF0000]" />
+                  )}
+                </TableCell>
                 <TableCell className="flex items-center gap-x-4">
                   <Link
                     href={`/todos/${todo.id}/update`}
