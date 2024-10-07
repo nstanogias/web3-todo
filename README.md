@@ -1,10 +1,12 @@
 This is a blockchain-integrated to-do list web application using Next.js, TypeScript, and web3 technologies.
 
-Hope page
+## Home Page
+
 ![Home page](public/assets/homepage.png)
 
-Create/Update page
-![Home page](public/assets/form.png)
+## Edit/Create Page
+
+![Edit/Create page](public/assets/form.png)
 
 ## Getting Started
 
