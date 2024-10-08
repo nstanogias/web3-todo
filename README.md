@@ -12,17 +12,22 @@ This is a blockchain-integrated to-do list web application using Next.js, TypeSc
 
 - [https://web3-todo-one.vercel.app/](https://web3-todo-one.vercel.app/)
 
-## Getting Started
+## Backend and running instructions
 
-The project is currently using supabase as a backend as a service which offers a Postgres database.
+The project is currently using supabase as Backend-as-a-Service which provides a Postgres database for data storage. Two tables are created:
 
-You can also run the app locally by uncommenting the code in comments in todo.actions.ts file. In that case an in-memory database is used.
+- Users: Keeps information about unique wallet_addresses
+- Todos: Keeps information about todos. There is a column **wallet_address** acting as a foreign key to _users_ table.
 
-and run:
+You can also run the app locally by uncommenting the code in comments in todo.actions.ts file. In that case an **in-memory** database is used and the backend is next.js itself with **Route Handlers**.
+
+In that case simply run:
 
 ```bash
 npm run dev
 ```
+
+Keep in mind that you need to create an **env.local** file and replace the environment variable **NEXT_PUBLIC_PROJECT_ID** as seen in the _.env.example_ file.
 
 ## Functional Requirements
 
@@ -62,3 +67,4 @@ The project meets the following actions:
 - [React Hook Form](https://react-hook-form.com/) - to create todo form
 - [Zod](https://zod.dev/) - to validate schemas
 - [Shadcn/ui](https://ui.shadcn.com/) - as a component library
+- [Supabase](https://supabase.com/) - as Backend-as-a-Service
