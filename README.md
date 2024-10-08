@@ -8,18 +8,20 @@ This is a blockchain-integrated to-do list web application using Next.js, TypeSc
 
 ![Edit/Create page](public/assets/form.png)
 
+## Deployed URL
+
+- [https://web3-todo-one.vercel.app/](https://web3-todo-one.vercel.app/)
+
 ## Getting Started
 
-First, run the development server:
+The project is currently using supabase as a backend as a service which offers a Postgres database.
+
+You can also run the app locally by uncommenting the code in comments in todo.actions.ts file. In that case an in-memory database is used.
+
+and run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 ## Functional Requirements
