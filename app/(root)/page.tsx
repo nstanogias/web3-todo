@@ -1,24 +1,21 @@
-// import { authOptions } from "../api/auth/[...nextauth]/route";
-import Home from "@/components/Home";
-import { getAllTodos } from "@/lib/actions/todo.actions";
+"use client";
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const HomePage = async ({ searchParams }: Props) => {
-  // const session = await getServerSession(authOptions);
-  const page = Number(searchParams?.page) || 1;
-  const todos = await getAllTodos(page);
+const HomePage = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  if (status === "authenticated") {
+    router.push("/todos");
+    return null;
+  }
 
   return (
-    <section className="items-center justify-items-center flex flex-col">
-      <Home
-        todos={todos.data}
-        totalPages={Math.ceil(todos.total / todos.limit)}
-        page={page}
-      />
-    </section>
+    <h1 className="text-xl font-semibold items-center justify-items-center flex flex-col mt-[100px]">
+      Connect
+    </h1>
   );
 };
 
