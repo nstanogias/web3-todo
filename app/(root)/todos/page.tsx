@@ -1,4 +1,3 @@
-// import { authOptions } from "../api/auth/[...nextauth]/route";
 import Home from "@/components/Home";
 import { getAllTodos } from "@/lib/actions/todo.actions";
 import { authOptions } from "@/lib/auth";
@@ -16,13 +15,16 @@ const TodosPage = async ({ searchParams }: Props) => {
   }
   const page = Number(searchParams?.page) || 1;
   const todos = await getAllTodos(page);
-  console.log("fetch todos");
 
   return (
     <section className="items-center justify-items-center flex flex-col">
       <Home
         todos={todos.data}
-        totalPages={Math.ceil(todos.total / todos.limit)}
+        totalPages={
+          Math.ceil(todos.total / todos.limit) === 0
+            ? 1
+            : Math.ceil(todos.total / todos.limit)
+        }
         page={page}
       />
     </section>

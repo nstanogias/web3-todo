@@ -28,6 +28,8 @@ const MintButton = ({ completedTodosCounter }: Props) => {
   });
   const mintedNFTs = Number(result.data);
   const config = useConfig();
+  console.log(mintedNFTs);
+  console.log(Math.floor(completedTodosCounter / 2));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: hash, writeContract } = useWriteContract();
 
@@ -91,7 +93,9 @@ const MintButton = ({ completedTodosCounter }: Props) => {
       <Button
         onClick={mint}
         disabled={
-          isPending || Math.floor(completedTodosCounter / 2) < mintedNFTs
+          isPending ||
+          completedTodosCounter < 2 ||
+          Math.floor(completedTodosCounter / 2) < mintedNFTs
         }
         className="my-16"
       >
