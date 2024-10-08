@@ -170,8 +170,6 @@ export const createTodo = async ({ todo }: { todo: Todo }) => {
     throw new Error(error.message);
   }
 
-  console.log("data", data);
-
   if (!data) {
     throw new Error("Failed to create the todo");
   }

@@ -28,8 +28,6 @@ const MintButton = ({ completedTodosCounter }: Props) => {
   });
   const mintedNFTs = Number(result.data);
   const config = useConfig();
-  console.log(mintedNFTs);
-  console.log(Math.floor(completedTodosCounter / 2));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: hash, writeContract } = useWriteContract();
 
