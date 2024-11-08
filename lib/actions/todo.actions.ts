@@ -177,6 +177,56 @@ export const createTodo = async ({ todo }: { todo: Todo }) => {
   return data[0];
 };
 
+export const incrementBurntNFTs = async (walletAddress: string) => {
+  // Retrieve the current count
+  const { data, error: selectError } = await supabase
+    .from("users")
+    .select("burntnfts")
+    .eq("wallet_address", walletAddress)
+    .single();
+
+  if (selectError) {
+    console.error("Error fetching current burntNFTs count:", selectError);
+    return null; // Handle the error as needed
+  }
+
+  if (data) {
+    const newCount = data.burntnfts + 1;
+
+    // Update the count
+    const { error: updateError } = await supabase
+      .from("users")
+      .update({ burntnfts: newCount })
+      .eq("wallet_address", walletAddress);
+
+    if (updateError) {
+      console.error("Error incrementing burntNFTs count:", updateError);
+      return null; // Handle the error as needed
+    }
+
+    return newCount; // Return the updated count
+  } else {
+    console.error("Wallet address not found.");
+    return null;
+  }
+};
+
+export const getBurntNFTsCount = async (
+  walletAddress: string
+): Promise<number | null> => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("burntnfts")
+    .eq("wallet_address", walletAddress)
+    .single(); // Ensures only one record is returned
+
+  if (error) {
+    console.error("Error fetching burntNFTs count:", error);
+    return null; // or handle the error based on your application's needs
+  }
+
+  return data ? data.burntnfts : null;
+};
 export const updateTodo = async ({ todo, id }: { todo: Todo; id: string }) => {
   // const url = `${serverUrl}/${id}`;
   // const body = JSON.stringify(todo);
